@@ -71,13 +71,17 @@ async def setServer(ctx, arg):
 async def showServer(ctx):
     '''  '''
 
-    # load data
-    with open('actaMea.json', 'r') as fileVariable:
+    # if user
+    if ('Germx5000' in str(ctx.author)[:-5]):
 
-        dictVariable = load(fileVariable)
+        # load data
+        with open('actaMea.json', 'r') as fileVariable:
 
-    await ctx.channel.send(''.join('{}\n'.format(i) for i in dictVariable.keys()),
-                           delete_after = 60.0)
+            dictVariable = load(fileVariable)
+
+        # send all keys
+        await ctx.channel.send(''.join('{}\n'.format(i) for i in dictVariable.keys()),
+                               delete_after = 60.0)
 
 
 actaMea.run(token)
