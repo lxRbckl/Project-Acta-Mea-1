@@ -7,7 +7,7 @@ from discord.ext.commands import Bot
 
 
 actaMea = Bot(command_prefix = '', intents = Intents.all())
-token = 'NzkxNjk5MTIzNzA3NDQ1MjQ4.X-S9RA.Jh2NFFaX6_EHHfmdGXKKIkg73DU'
+token = ''
 
 
 @actaMea.command()
