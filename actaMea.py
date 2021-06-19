@@ -7,7 +7,8 @@ from discord.ext.commands import Bot
 
 
 actaMea = Bot(command_prefix = '', intents = Intents.all())
-token = ''
+token = 'NzkxNjk5MTIzNzA3NDQ1MjQ4.X-S9RA.Jh2NFFaX6_EHHfmdGXKKIkg73DU'
+
 
 @actaMea.command()
 async def getServer(ctx, arg):
@@ -64,6 +65,19 @@ async def setServer(ctx, arg):
             dump(dictVariable,
                  fileVariable,
                  indent = 4)
+
+
+@actaMea.command()
+async def showServer(ctx):
+    '''  '''
+
+    # load data
+    with open('actaMea.json', 'r') as fileVariable:
+
+        dictVariable = load(fileVariable)
+
+    await ctx.channel.send(''.join('{}\n'.format(i) for i in dictVariable.keys()),
+                           delete_after = 60.0)
 
 
 actaMea.run(token)
