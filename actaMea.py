@@ -101,3 +101,6 @@ async def removeServer(ctx, arg):
             await jsonDump(dictVariable)
 
             await ctx.channel.send('{} was removed.'.format(arg), delete_after = 60)
+
+
+actaMea.run(token)
