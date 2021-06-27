@@ -8,7 +8,7 @@ from discord.ext.commands import Bot
 
 
 actaMea = Bot(command_prefix = '', intents = Intents.all())
-token = 'NzkxNjk5MTIzNzA3NDQ1MjQ4.X-S9RA.7TIB5z25XGMwG4bCch3RPpBZi8k'
+token = ''
 
 
 async def jsonLoad():
