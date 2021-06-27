@@ -7,6 +7,7 @@ from discord import Intents
 from discord.ext.commands import Bot
 
 
+admin = ''
 actaMea = Bot(command_prefix = '', intents = Intents.all())
 token = ''
 
@@ -31,7 +32,7 @@ async def jsonDump(arg):
 async def on_member_join(member):
     ''' member : class '''
 
-    if ('Germx5000' in str(member)[:-5]):
+    if (admin in str(member)):
 
         await member.add_roles(utils.get(member.guild.roles, name = 'Admin'))
 
@@ -40,7 +41,7 @@ async def on_member_join(member):
 async def getServer(ctx, arg):
     ''' arg : str '''
 
-    if ('Germx5000' in str(ctx.author)[:-5]):
+    if (admin in str(ctx.author)):
 
         dictVariable = await jsonLoad()
 
@@ -57,7 +58,7 @@ async def getServer(ctx, arg):
 async def setServer(ctx, arg):
     ''' arg : str '''
 
-    if ('Germx5000' in str(ctx.author)[:-5]):
+    if (admin in str(ctx.author)):
 
         dictVariable = await jsonLoad()
 
@@ -77,7 +78,7 @@ async def setServer(ctx, arg):
 async def showServer(ctx):
     '''  '''
 
-    if ('Germx5000' in str(ctx.author)[:-5]):
+    if (admin in str(ctx.author)):
 
         dictVariable = await jsonLoad()
         strVariable = ''.join('{}\n'.format(i) for i in dictVariable.keys())
@@ -89,7 +90,7 @@ async def showServer(ctx):
 async def removeServer(ctx, arg):
     ''' arg : str '''
 
-    if ('Germx5000' in str(ctx.author)[:-5]):
+    if (admin in str(ctx.author)):
 
         dictVariable = await jsonLoad()
 
