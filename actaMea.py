@@ -53,7 +53,7 @@ async def getServer(ctx, arg):
             await ctx.channel.send('{} does not exist.'.format(arg), delete_after = 60)
 
 
-@actaMea.command()
+@actaMea.command(aliases = ['set', 'Set'])
 async def setServer(ctx, arg):
     ''' arg : str '''
 
@@ -61,14 +61,16 @@ async def setServer(ctx, arg):
 
         dictVariable = await jsonLoad()
 
-        if (int(ctx.channel.id) in dictVariable.values()):
+        if (arg in dictVariable.keys()):
 
-            del dictVariable[arg]
+            await ctx.channel.send('{} already exists.'.format(arg), delete_after = 60)
 
-        dictVariable[arg] = int(ctx.channel.id)
-        await jsonDump(dictVariable)
+        else:
 
-        await ctx.channel.send('{} was added.'.format(arg))
+            dictVariable[arg] = int(ctx.channel.id)
+            await jsonDump(dictVariable)
+
+            await ctx.channel.send('{} was added.'.format(arg))
 
 
 @actaMea.command(aliases = ['show', 'Show'])
