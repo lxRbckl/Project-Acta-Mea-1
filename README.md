@@ -3,4 +3,6 @@
 ## Installation
 ```
 pip3 install discord.py
+
+git clone https://github.com/lxRbckl/Project-Acta-Mea.git
 ```
