@@ -1,15 +1,21 @@
 # Acta Mea by Alex Arbuckle #
 
 
+# Import <
 from discord import utils
 from json import load, dump
 from discord import Intents
 from discord.ext.commands import Bot
 
+# >
 
+
+# Declaration <
 admin = ''
 actaMea = Bot(command_prefix = '', intents = Intents.all())
 token = ''
+
+# >
 
 
 async def jsonLoad():
@@ -32,78 +38,68 @@ async def jsonDump(arg):
 async def on_member_join(member):
     ''' member : class '''
 
-    if (admin in str(member)):
-
-        await member.add_roles(utils.get(member.guild.roles, name = 'Admin'))
+    await member.add_roles(utils.get(member.guild.roles, name = 'Admin')) if (str(member) == admin) else (None)
 
 
 @actaMea.command(aliases = ['get', 'Get'])
 async def getServer(ctx, arg):
     ''' arg : str '''
 
-    if (admin in str(ctx.author)):
+    dictVariable = await jsonLoad()
 
-        dictVariable = await jsonLoad()
+    if (arg in dictVariable.keys() and (admin == str(ctx.author))):
 
-        if (arg in dictVariable.keys()):
+        await ctx.channel.send(await actaMea.get_channel(dictVariable[arg]).create_invite(), delete_after = 60)
 
-            await ctx.send(await actaMea.get_channel(dictVariable[arg]).create_invite(), delete_after = 60)
+    else:
 
-        else:
-
-            await ctx.channel.send('{} does not exist.'.format(arg), delete_after = 60)
+        await ctx.channel.send(f'{arg} does not exist.', delete_after = 60)
 
 
 @actaMea.command(aliases = ['set', 'Set'])
 async def setServer(ctx, arg):
     ''' arg : str '''
 
-    if (admin in str(ctx.author)):
+    dictVariable = await jsonLoad()
 
-        dictVariable = await jsonLoad()
+    if ((arg in dictVariable.keys()) and (admin == str(ctx.author))):
 
-        if (arg in dictVariable.keys()):
+        await ctx.channel.send(f'{arg} already exists.', delete_after = 60)
 
-            await ctx.channel.send('{} already exists.'.format(arg), delete_after = 60)
+    else:
 
-        else:
+        dictVariable[arg] = int(ctx.channel.id)
 
-            dictVariable[arg] = int(ctx.channel.id)
-            await jsonDump(dictVariable)
-
-            await ctx.channel.send('{} was added.'.format(arg))
+        await jsonDump(dictVariable)
+        await ctx.channel.send(f'{arg} was added.', delete_after = 60)
 
 
 @actaMea.command(aliases = ['show', 'Show'])
 async def showServer(ctx):
     '''  '''
 
-    if (admin in str(ctx.author)):
+    dictVariable = await jsonLoad()
+    strVariable = ''.join(f'{i}' for i in dictVariable.keys())
 
-        dictVariable = await jsonLoad()
-        strVariable = ''.join('{}\n'.format(i) for i in dictVariable.keys())
-
-        await ctx.channel.send(strVariable, delete_after = 60)
+    await ctx.channel.send(strVariable, delete_after = 60) if (admin in str(ctx.author)) else (None)
 
 
 @actaMea.command(aliases = ['remove', 'Remove'])
 async def removeServer(ctx, arg):
     ''' arg : str '''
 
-    if (admin in str(ctx.author)):
+    dictVariable = await jsonLoad()
 
-        dictVariable = await jsonLoad()
+    if ((arg in dictVariable.keys()) and (admin == str(ctx.author))):
 
-        if (arg not in dictVariable.keys()):
+        del dictVariable[arg]
 
-            await ctx.channel.send('{} does not exist.'.format(arg), delete_after = 60)
+        await jsonDump(dictVariable)
+        await ctx.channel.send(f'{arg} was removed.', delete_after = 60)
 
-        else:
+    else:
 
-            del dictVariable[arg]
-            await jsonDump(dictVariable)
-
-            await ctx.channel.send('{} was removed.'.format(arg), delete_after = 60)
+        await ctx.channel.send(f'{arg} does not exist.', delete_after = 60)
 
 
 actaMea.run(token)
