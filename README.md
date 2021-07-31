@@ -1,6 +1,5 @@
 # Project Acta Mea
 > A Discord bot that provides a layer of abstraction between you and Discord servers.
-##
 
 ### Installation
 ```
