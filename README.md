@@ -1,5 +1,5 @@
 ## Project Acta Mea
-> A Discord bot that provides a layer of abstraction between you and your Discord servers.
+> A Discord bot that provides a layer of abstraction between you and Discord servers.
 ## Installation
 ```
 pip3 install discord.py
