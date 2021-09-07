@@ -45,6 +45,7 @@ async def on_member_join(member):
 async def getServer(ctx, arg):
     ''' arg : str '''
 
+    arg = arg.replace(' ', '-')
     dictVariable = await jsonLoad()
 
     if (arg in dictVariable.keys() and (admin == str(ctx.author))):
@@ -60,6 +61,7 @@ async def getServer(ctx, arg):
 async def setServer(ctx, arg):
     ''' arg : str '''
 
+    arg = arg.replace(' ', '-')
     dictVariable = await jsonLoad()
 
     if ((arg in dictVariable.keys()) and (admin == str(ctx.author))):
@@ -79,7 +81,7 @@ async def showServer(ctx):
     '''  '''
 
     dictVariable = await jsonLoad()
-    strVariable = ''.join(f'{i}' for i in dictVariable.keys())
+    strVariable = '\n'.join(f'{i}' for i in dictVariable.keys())
 
     await ctx.channel.send(strVariable, delete_after = 60) if (admin in str(ctx.author)) else (None)
 
