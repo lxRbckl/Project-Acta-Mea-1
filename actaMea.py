@@ -91,6 +91,7 @@ async def showServer(ctx):
     dictVariable = await jsonLoad()
     strVariable = '\n'.join(f'{i}' for i in dictVariable.keys())
 
+    await ctx.message.delete()
     await ctx.author.send(strVariable, delete_after = 30) if (admin in str(ctx.author)) else (None)
 
 
@@ -104,6 +105,7 @@ async def removeServer(ctx, arg):
 
         del dictVariable[arg]
 
+        await ctx.message.delete()
         await jsonDump(dictVariable)
         await ctx.author.send(f'{arg} was removed.', delete_after = 30)
 
