@@ -48,13 +48,17 @@ async def getServer(ctx, arg):
     arg = arg.replace(' ', '-')
     dictVariable = await jsonLoad()
 
+    # if Valid and Admin <
     if (arg in dictVariable.keys() and (admin == str(ctx.author))):
 
-        await ctx.channel.send(await actaMea.get_channel(dictVariable[arg]).create_invite(), delete_after = 60)
+        await ctx.author.send(await actaMea.get_channel(dictVariable[arg]).create_invite(), delete_after = 60)
+        await ctx.message.delete()
+
+    # >
 
     else:
 
-        await ctx.channel.send(f'{arg} does not exist.', delete_after = 60)
+        await ctx.author.send('There was an error.', delete_after = 60)
 
 
 @actaMea.command(aliases = ['set', 'Set'])
@@ -64,16 +68,19 @@ async def setServer(ctx, arg):
     arg = arg.replace(' ', '-')
     dictVariable = await jsonLoad()
 
-    if ((arg in dictVariable.keys()) and (admin == str(ctx.author))):
+    # if Exists or Not Admin <
+    if ((arg in dictVariable.keys()) or (admin != str(ctx.author))):
 
-        await ctx.channel.send(f'{arg} already exists.', delete_after = 60)
+        await ctx.author.send('There was an error.', delete_after = 60)
+
+    # >
 
     else:
 
         dictVariable[arg] = int(ctx.channel.id)
 
         await jsonDump(dictVariable)
-        await ctx.channel.send(f'{arg} was added.', delete_after = 60)
+        await ctx.author.send(f'{arg} was added.', delete_after = 60)
 
 
 @actaMea.command(aliases = ['show', 'Show'])
@@ -83,7 +90,7 @@ async def showServer(ctx):
     dictVariable = await jsonLoad()
     strVariable = '\n'.join(f'{i}' for i in dictVariable.keys())
 
-    await ctx.channel.send(strVariable, delete_after = 60) if (admin in str(ctx.author)) else (None)
+    await ctx.author.send(strVariable, delete_after = 60) if (admin in str(ctx.author)) else (None)
 
 
 @actaMea.command(aliases = ['remove', 'Remove'])
@@ -97,11 +104,11 @@ async def removeServer(ctx, arg):
         del dictVariable[arg]
 
         await jsonDump(dictVariable)
-        await ctx.channel.send(f'{arg} was removed.', delete_after = 60)
+        await ctx.author.send(f'{arg} was removed.', delete_after = 60)
 
     else:
 
-        await ctx.channel.send(f'{arg} does not exist.', delete_after = 60)
+        await ctx.author.send(f'{arg} does not exist.', delete_after = 60)
 
 
 # Main <
