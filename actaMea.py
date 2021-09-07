@@ -102,4 +102,9 @@ async def removeServer(ctx, arg):
         await ctx.channel.send(f'{arg} does not exist.', delete_after = 60)
 
 
-actaMea.run(token)
+# Main <
+if (__name__ == '__main__'):
+
+    actaMea.run(token)
+
+# >
