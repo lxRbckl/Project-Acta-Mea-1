@@ -23,7 +23,7 @@ token = ''
 async def jsonLoad():
     '''  '''
 
-    with open(f'{}actaMea.json', 'r') as fileVariable:
+    with open(f'{path}actaMea.json', 'r') as fileVariable:
 
         return load(fileVariable)
 
@@ -31,7 +31,7 @@ async def jsonLoad():
 async def jsonDump(arg):
     ''' arg : dict '''
 
-    with open(f'{}actaMea.json', 'w') as fileVariable:
+    with open(f'{path}actaMea.json', 'w') as fileVariable:
 
         dump(arg, fileVariable, indent = 4)
 
