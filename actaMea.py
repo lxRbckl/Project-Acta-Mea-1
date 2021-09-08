@@ -2,6 +2,7 @@
 
 
 # Import <
+from os import path
 from discord import utils
 from json import load, dump
 from discord import Intents
@@ -12,6 +13,7 @@ from discord.ext.commands import Bot
 
 # Declaration <
 admin = ''
+path = path.realpath(__file__)[:-10]
 actaMea = Bot(command_prefix = '', intents = Intents.all())
 token = ''
 
@@ -21,7 +23,7 @@ token = ''
 async def jsonLoad():
     '''  '''
 
-    with open('actaMea.json', 'r') as fileVariable:
+    with open(f'{}actaMea.json', 'r') as fileVariable:
 
         return load(fileVariable)
 
@@ -29,7 +31,7 @@ async def jsonLoad():
 async def jsonDump(arg):
     ''' arg : dict '''
 
-    with open('actaMea.json', 'w') as fileVariable:
+    with open(f'{}actaMea.json', 'w') as fileVariable:
 
         dump(arg, fileVariable, indent = 4)
 
@@ -117,6 +119,7 @@ async def removeServer(ctx, arg):
 # Main <
 if (__name__ == '__main__'):
 
-    actaMea.run(token)
+    #actaMea.run(token)
+    pass
 
 # >
