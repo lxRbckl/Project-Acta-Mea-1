@@ -119,7 +119,6 @@ async def removeServer(ctx, arg):
 # Main <
 if (__name__ == '__main__'):
 
-    #actaMea.run(token)
-    pass
+    actaMea.run(token)
 
 # >
