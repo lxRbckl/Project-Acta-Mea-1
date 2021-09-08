@@ -62,10 +62,10 @@ async def getServer(ctx, arg):
 
 
 @actaMea.command(aliases = ['set', 'Set'])
-async def setServer(ctx, arg):
-    ''' arg : str '''
+async def setServer(ctx, *args):
+    ''' args[n] : str '''
 
-    arg = arg.replace(' ', '-')
+    arg = '-'.join(i for i in args)
     dictVariable = await jsonLoad()
 
     # if Exists or Not Admin <
