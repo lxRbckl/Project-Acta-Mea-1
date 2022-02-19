@@ -1,4 +1,4 @@
-## Project Acta Mea
+## [Project Acta Mea](http://lxrbckl.com/Project-Acta-Mea)
 > Add a layer of abstraction between you and Discord servers with a Discord bot. Spring 2021.
 
 ### Installation
